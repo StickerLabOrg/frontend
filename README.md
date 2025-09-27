@@ -135,4 +135,3 @@ album-frontend/
 ## 📜 Licença
 
 Este projeto está sob a licença **MIT**. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
-
