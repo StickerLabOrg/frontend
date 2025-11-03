@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // <--- 1. IMPORTE O HOOK
+import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 import api from '../services/api'; 
 
@@ -7,7 +7,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // <--- 2. INICIE O HOOK
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); 
@@ -18,12 +18,16 @@ function LoginPage() {
     formData.append('password', password);
 
     try {
-      const response = await api.post('/token', formData);
+      const response = await api.post('/token', formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
       console.log('Login bem-sucedido!', response.data);
       localStorage.setItem('token', response.data.access_token);
       
-      navigate('/'); // <--- 3. REDIRECIONE PARA A PÁGINA PRINCIPAL
-
+      navigate('/'); // Redireciona para a página principal
     } catch (err) {
       console.error('Erro no login:', err);
       setError('E-mail ou senha inválidos. Tente novamente.');
