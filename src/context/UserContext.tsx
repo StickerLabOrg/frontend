@@ -12,7 +12,7 @@ type UserMetrics = {
 const UserContext = createContext<UserMetrics | null>(null);
 
 // -----------------------------------------------------------
-// PROVIDER
+// PROVIDER REVISADO
 // -----------------------------------------------------------
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [metrics, setMetrics] = useState<UserMetrics>({
@@ -25,7 +25,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   async function loadUserData() {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token") ?? "";
+
+      if (!token) {
+        console.warn("Nenhum token encontrado — métricas não podem ser carregadas.");
+        setMetrics((prev) => ({ ...prev, loading: false }));
+        return;
+      }
 
       const auth = {
         headers: {
@@ -33,24 +39,56 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         },
       };
 
-      // --- RANKING ---
-      const rankingResp = await axios.get("http://localhost:8000/ranking/geral", auth);
+      // -----------------------------------------
+      // 1) RANKING
+      // -----------------------------------------
+      let palpites = 0;
+      let precisao = 0;
+      let pontos = 0;
 
-      const userRank = rankingResp.data.ranking.find((p: any) => p.is_you === true);
+      try {
+        const rankingResp = await axios.get(
+          "http://localhost:8000/ranking/geral",
+          auth
+        );
 
-      // --- FIGURINHAS ---
-      const figsResp = await axios.get("http://localhost:8000/colecao/minhas-figurinhas", auth);
+        const rankingList = rankingResp.data.ranking ?? rankingResp.data ?? [];
+
+        const meuRegistro = rankingList.find((p: any) => p.is_you);
+
+        palpites = meuRegistro?.palpites ?? 0;
+        precisao = meuRegistro?.precisao ?? 0;
+        pontos = meuRegistro?.pontos ?? 0;
+      } catch (e) {
+        console.warn("Não foi possível carregar ranking (token inválido ou erro no backend).");
+      }
+
+      // -----------------------------------------
+      // 2) FIGURINHAS
+      // -----------------------------------------
+      let figurinhas = 0;
+
+      try {
+        const figsResp = await axios.get(
+          "http://localhost:8000/colecao/minhas-figurinhas",
+          auth
+        );
+
+        figurinhas = figsResp.data?.length ?? 0;
+      } catch (e) {
+        console.warn("Não foi possível carregar figurinhas.");
+      }
 
       setMetrics({
-        palpites: userRank?.palpites ?? 0,
-        precisao: userRank?.precisao ?? 0,
-        pontos: userRank?.pontos ?? 0,
-        figurinhas: figsResp.data.length ?? 0,
+        palpites,
+        precisao,
+        pontos,
+        figurinhas,
         loading: false,
       });
 
     } catch (err) {
-      console.error("Erro ao carregar métricas globais:", err);
+      console.error("Erro grave ao carregar métricas globais:", err);
       setMetrics((prev) => ({ ...prev, loading: false }));
     }
   }
@@ -59,7 +97,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     loadUserData();
   }, []);
 
-  return <UserContext.Provider value={metrics}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={metrics}>{children}</UserContext.Provider>
+  );
 }
 
 // -----------------------------------------------------------

@@ -1,3 +1,4 @@
+// src/layout/Sidebar.tsx
 import { Link, useLocation } from "react-router-dom";
 import {
   Home,
@@ -20,12 +21,14 @@ export function Sidebar() {
     { label: "Perfil", icon: <User size={18} />, path: "/perfil" },
   ];
 
-  const isActive = (path: string) => pathname === path;
+  function isActive(path: string) {
+    return pathname === path;
+  }
 
   return (
     <aside className="h-screen w-64 bg-[#121826] text-white fixed left-0 top-0 flex flex-col p-6 gap-6 shadow-xl shadow-black/30">
 
-      {/* HEADER → CLICA E VOLTA PARA O DASHBOARD */}
+      {/* Cabeçalho */}
       <Link to="/" className="group select-none">
         <h1 className="text-2xl font-semibold tracking-tight group-hover:text-green-400 transition">
           Hub do Torcedor
@@ -39,8 +42,8 @@ export function Sidebar() {
         </div>
       </Link>
 
-      {/* MENU */}
-      <nav className="flex-1 flex flex-col gap-1 mt-2">
+      {/* Navegação */}
+      <nav className="flex-1 flex flex-col gap-1">
         {menu.map((item) => (
           <Link
             key={item.path}
@@ -60,7 +63,7 @@ export function Sidebar() {
         ))}
       </nav>
 
-      {/* SAIR */}
+      {/* Botão Sair */}
       <button
         className="
           flex items-center gap-2 text-red-400 hover:text-red-300 
@@ -74,7 +77,6 @@ export function Sidebar() {
       >
         <LogOut size={18} /> Sair
       </button>
-
     </aside>
   );
 }
