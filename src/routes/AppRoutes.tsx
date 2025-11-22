@@ -7,13 +7,18 @@ import { DashboardPage } from "../pages/Dashboard/DashboardPage";
 import { ClassificacaoPage } from "../pages/Classificacao/ClassificacaoPage";
 import { PerfilPage } from "../pages/Perfil/PerfilPage";
 import { RankingPage } from "../pages/Ranking/RankingPage";
-import { LojaPage } from "../pages/Loja/LojaPage";
 
+import { LojaPage } from "../pages/Loja/LojaPage";
 import { ConfirmarCompraPage } from "../pages/Loja/ConfirmarCompraPage";
 import { AbrirPacotePage } from "../pages/Loja/AbrirPacotePage";
 import { ResultadoPacotePage } from "../pages/Loja/ResultadoPacotePage";
 
+import { AlbumPage } from "../pages/Album/AlbumPage";
+
 import { PrivateRoute } from "./PrivateRoute";
+
+// *** IMPORTAÇÃO DA NOVA PÁGINA ***
+import { PartidaPage } from "../pages/Partida/PartidaPage";
 
 export default function AppRoutes() {
   return (
@@ -29,6 +34,16 @@ export default function AppRoutes() {
           element={
             <PrivateRoute>
               <DashboardPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Nova rota — Detalhes da Partida */}
+        <Route
+          path="/partida/:partidaId"
+          element={
+            <PrivateRoute>
+              <PartidaPage />
             </PrivateRoute>
           }
         />
@@ -101,14 +116,12 @@ export default function AppRoutes() {
           }
         />
 
-        {/* Álbum (placeholder) */}
+        {/* Álbum */}
         <Route
           path="/album"
           element={
             <PrivateRoute>
-              <div style={{ padding: 20, color: "white" }}>
-                <h1>Álbum ainda não implementado</h1>
-              </div>
+              <AlbumPage />
             </PrivateRoute>
           }
         />
