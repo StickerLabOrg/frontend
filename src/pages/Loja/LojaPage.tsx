@@ -1,6 +1,7 @@
 // src/pages/Loja/LojaPage.tsx
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import type { ReactNode } from "react";
 
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";

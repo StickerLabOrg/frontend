@@ -177,7 +177,7 @@ export function MeusPalpitesPage() {
 
         {/* LISTA */}
         <section className="space-y-6 pb-10">
-          {lista.map(({ palpite, resultado }, index) => {
+          {lista.map(({ palpite, resultado }) => {
             const status = getStatus(palpite.acertou, resultado?.status || null);
 
             return (

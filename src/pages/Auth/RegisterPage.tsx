@@ -22,7 +22,7 @@ export function RegisterPage() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/usuarios/", {
+      await axios.post("http://localhost:8000/usuarios/", {
         nome,
         email,
         password: senha,

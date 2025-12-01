@@ -1,7 +1,9 @@
 // src/layout/AppLayout.tsx
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
+import type { ReactNode } from "react";
+
 
 type AppLayoutProps = {
   children: ReactNode;

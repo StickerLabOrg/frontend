@@ -11,20 +11,19 @@ export function AbrirPacotePage() {
 
   const navigate = useNavigate();
 
-  const [pacote, setPacote] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [animando, setAnimando] = useState(false);
 
   async function carregarPacote() {
     const token = localStorage.getItem("token") ?? "";
 
-    const resp = await axios.get(
-      `http://localhost:8000/colecao/pacote/temp?pacote_temp_id=${tempId}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    setPacote(resp.data);
-    setLoading(false);
+    try {
+      await axios.get(
+        `http://localhost:8000/colecao/pacote/temp?pacote_temp_id=${tempId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (error) {
+      console.error("Erro ao carregar pacote:", error);
+    }
   }
 
   useEffect(() => {

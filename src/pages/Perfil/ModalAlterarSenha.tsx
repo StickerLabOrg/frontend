@@ -160,7 +160,7 @@ export function ModalAlterarSenha({ isOpen, onClose }: Props) {
         {/* Botões */}
         <div className="flex justify-between mt-6">
           <Button
-            variant="ghost"
+            variant="outline"
             className="bg-gray-700 hover:bg-gray-600 text-white"
             onClick={onClose}
           >

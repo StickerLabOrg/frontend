@@ -103,7 +103,7 @@ export function EsqueciSenhaPage() {
               {/* BTN Voltar */}
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 className="w-full text-gray-300 hover:text-white hover:bg-white/10"
                 onClick={() => navigate("/login")}
               >
