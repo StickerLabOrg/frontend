@@ -1,0 +1,61 @@
+/* 1) IMPORT DAS FONTES – sempre primeiro */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap");
+
+/* 2) DIRETIVAS DO TAILWIND */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3) CUSTOMIZAÇÕES DO PROJETO */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background text-foreground font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-heading;
+}
+
+/* -------------------------------------------------------
+   ANIMAÇÕES GLOBAIS
+------------------------------------------------------- */
+
+@keyframes fade-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide-up {
+  animation: fade-slide-up 0.4s ease both;
+}
+
+/* Efeito Neon no Hover da Logo */
+.logo-ht {
+  filter: drop-shadow(0 0 0px rgba(0, 255, 128, 0));
+  transition: all 0.3s ease-in-out;
+}
+
+.logo-ht:hover {
+  filter: drop-shadow(0 0 12px rgba(0, 255, 128, 0.7))
+          drop-shadow(0 0 20px rgba(0, 255, 128, 0.4));
+  transform: scale(1.04);
+}
+
+.logo-ht-sidebar {
+  filter: drop-shadow(0 0 0px rgba(0, 255, 128, 0));
+}
+
+.logo-ht-sidebar:hover {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 128, 0.6))
+          drop-shadow(0 0 18px rgba(0, 255, 128, 0.4));
+  transform: scale(1.03);
+}
