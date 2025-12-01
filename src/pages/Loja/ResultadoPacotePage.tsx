@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AppLayout } from "../../layout/AppLayout";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
 
 export function ResultadoPacotePage() {
   const [params] = useSearchParams();
@@ -18,7 +19,7 @@ export function ResultadoPacotePage() {
     const token = localStorage.getItem("token") ?? "";
 
     const resp = await axios.get(
-      `http://localhost:8000/colecao/pacote/temp?pacote_temp_id=${tempId}`,
+      `${API_BASE}/colecao/pacote/temp?pacote_temp_id=${tempId}`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
@@ -34,7 +35,7 @@ export function ResultadoPacotePage() {
     const token = localStorage.getItem("token") ?? "";
 
     await axios.post(
-      `http://localhost:8000/colecao/pacote/confirmar?pacote_temp_id=${tempId}`,
+      `${API_BASE}/colecao/pacote/confirmar?pacote_temp_id=${tempId}`,
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     );

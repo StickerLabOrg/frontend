@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AppLayout } from "../../layout/AppLayout";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
+
 
 export function AbrirPacotePage() {
   const [params] = useSearchParams();
@@ -18,7 +20,7 @@ export function AbrirPacotePage() {
 
     try {
       await axios.get(
-        `http://localhost:8000/colecao/pacote/temp?pacote_temp_id=${tempId}`,
+        `${API_BASE}/colecao/pacote/temp?pacote_temp_id=${tempId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
     } catch (error) {

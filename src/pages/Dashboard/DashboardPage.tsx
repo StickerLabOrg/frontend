@@ -3,6 +3,7 @@ import { useEffect, useState, } from "react";
 import type { ReactNode } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../../config/api";
 
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
@@ -172,7 +173,7 @@ export function DashboardPage() {
 
   async function fetchMatches() {
     try {
-      const response = await axios.get("http://localhost:8000/partidas/proximas");
+      const response = await axios.get(`${API_BASE}/partidas/proximas`);
       const partidasOrdenadas = response.data.sort(
         (a: Match, b: Match) =>
           new Date(`${a.data}T${a.horario}`).getTime() -
@@ -189,7 +190,7 @@ export function DashboardPage() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const r = await axios.get("http://localhost:8000/palpites/", {
+      const r = await axios.get(`${API_BASE}/palpites/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -295,7 +296,7 @@ export function DashboardPage() {
     const token = localStorage.getItem("token") ?? "";
 
     await axios.post(
-      "http://localhost:8000/palpites/",
+      `${API_BASE}/palpites/`,
       {
         partida_id: Number(partidaId),
         palpite_gols_casa: golsCasa,

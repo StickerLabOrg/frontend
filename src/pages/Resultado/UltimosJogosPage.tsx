@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
+import { API_BASE } from "../../config/api";
 
 type Time = {
   id: string;
@@ -44,7 +45,7 @@ export function UltimosJogosPage() {
     try {
       // 1 — tenta via backend normalmente (V2 + padrão do seu serviço)
       const resp = await axios.get(
-        "http://localhost:8000/partidas/ultimos-resultados"
+        `${API_BASE}/partidas/ultimos-resultados`
       );
 
       if (resp.data && resp.data.length > 0) {

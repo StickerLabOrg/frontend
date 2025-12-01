@@ -3,6 +3,7 @@ import { Home, Book, BarChart2, ShoppingBag, User, LogOut, Activity, Target, Tro
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LogoHT from "../assets/LOGO_HT.png";
+import { API_BASE } from "../config/api";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -37,7 +38,7 @@ const menu = [
     if (!token) return;
 
     axios
-      .get("http://localhost:8000/usuarios/me", {
+      .get(`${API_BASE}/usuarios/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((resp) => {

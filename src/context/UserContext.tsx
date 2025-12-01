@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../config/api";
 
 type UserMetrics = {
   palpites: number;
@@ -48,7 +49,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       try {
         const rankingResp = await axios.get(
-          "http://localhost:8000/ranking/geral",
+          `${API_BASE}/ranking/geral`,
           auth
         );
 
@@ -70,7 +71,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       try {
         const figsResp = await axios.get(
-          "http://localhost:8000/colecao/minhas-figurinhas",
+          `${API_BASE}/colecao/minhas-figurinhas`,
           auth
         );
 

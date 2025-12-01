@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
+import { API_BASE } from "../../config/api";
+
 
 /* -------------------------------------------------------
    Tipos
@@ -76,7 +78,7 @@ export function ClassificacaoPage() {
       setLoading(true);
 
       const response = await axios.get<TabelaRow[]>(
-        "http://localhost:8000/partidas/tabela",
+        `${API_BASE}/partidas/tabela`,
         {
           params: { league_id: leagueId, season: season },
         }

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from "../../config/api";
 
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
@@ -37,7 +38,7 @@ export function ConfirmarCompraPage() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token") ?? "";
-      const resp = await axios.get("http://localhost:8000/usuarios/me", {
+      const resp = await axios.get(`${API_BASE}/usuarios/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSaldo(resp.data.coins);
@@ -67,7 +68,7 @@ export function ConfirmarCompraPage() {
 
       // ROTA CORRETA DO BACKEND
       const resp = await axios.post(
-        `http://localhost:8000/colecao/comprar/${pacoteId}`,
+        `${API_BASE}/colecao/comprar/${pacoteId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

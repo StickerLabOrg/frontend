@@ -1,6 +1,7 @@
 // src/pages/Perfil/PerfilPage.tsx
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../../config/api";
 
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
@@ -59,7 +60,7 @@ export function PerfilPage() {
       }
 
       // 1) INFO BÁSICA DO USUÁRIO
-      const resp = await axios.get("http://localhost:8000/usuarios/me", {
+      const resp = await axios.get(`${API_BASE}/usuarios/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -67,7 +68,7 @@ export function PerfilPage() {
 
       // 2) FIGURINHAS
       const figsResp = await axios.get(
-        "http://localhost:8000/colecao/minhas-figurinhas",
+        `${API_BASE}/colecao/minhas-figurinhas`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -76,7 +77,7 @@ export function PerfilPage() {
 
       // 3) PROGRESSO DO ÁLBUM
       const albumResp = await axios.get(
-        "http://localhost:8000/colecao/album",
+        `${API_BASE}/colecao/album`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -84,7 +85,7 @@ export function PerfilPage() {
 
       // 4) PALPITES (MESMO ENDPOINT DO DASHBOARD)
       const palpitesResp = await axios.get(
-        "http://localhost:8000/palpites",
+        `${API_BASE}/palpites`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

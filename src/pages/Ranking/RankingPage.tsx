@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { API_BASE } from "../../config/api";
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
 import { Crown } from "lucide-react";
@@ -36,7 +36,7 @@ export function RankingPage() {
 
       const token = localStorage.getItem("token") ?? "";
       const resp = await axios.get(
-        `http://localhost:8000/ranking/${p}`,
+        `${API_BASE}/ranking/${p}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

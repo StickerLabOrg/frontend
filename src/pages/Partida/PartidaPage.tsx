@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
 import { ArrowLeft, Clock, MapPin, Users } from "lucide-react";
+import { API_BASE } from "../../config/api";
+
 
 /* -------------------------------------------------------
    TIPOS
@@ -126,7 +128,7 @@ export function PartidaPage() {
       setErro(null);
 
       const resp = await axios.get(
-        `http://localhost:8000/partidas/resultado/${id}`
+        `${API_BASE}/colecao/partidas/resultado/${id}`
       );
 
       let raw: any = resp.data;

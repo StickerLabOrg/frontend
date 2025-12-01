@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import axios from "axios";
 import { X, Eye, EyeOff } from "lucide-react";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
 
 type Props = {
   isOpen: boolean;
@@ -29,7 +30,7 @@ export function ModalAlterarSenha({ isOpen, onClose }: Props) {
       if (!token) return;
 
       axios
-        .get("http://localhost:8000/usuarios/me", {
+        .get(`${API_BASE}/colecao/usuarios/me`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUserId(res.data.id))
@@ -60,7 +61,7 @@ export function ModalAlterarSenha({ isOpen, onClose }: Props) {
       };
 
       await axios.post(
-        "http://localhost:8000/usuarios/alterar-senha",
+        `${API_BASE}/usuarios/alterar-senha`,
         body,
         {
           headers: { Authorization: `Bearer ${token}` },

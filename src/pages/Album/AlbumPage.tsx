@@ -5,6 +5,7 @@ import axios from "axios";
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
 
 import {
   Settings2,
@@ -97,7 +98,7 @@ export function AlbumPage() {
       const token = localStorage.getItem("token") ?? "";
 
       const resp = await axios.get<AlbumResponse>(
-        "http://localhost:8000/colecao/album",
+        `${API_BASE}/colecao/album`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -136,7 +137,7 @@ export function AlbumPage() {
       const token = localStorage.getItem("token") ?? "";
 
       await axios.post(
-        "http://localhost:8000/colecao/album/criar",
+        `${API_BASE}/colecao/album/criar`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -166,7 +167,7 @@ export function AlbumPage() {
       const token = localStorage.getItem("token") ?? "";
 
       await axios.post(
-        "http://localhost:8000/colecao/album/resetar",
+        `${API_BASE}/colecao/album/resetar`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -196,7 +197,7 @@ export function AlbumPage() {
       const token = localStorage.getItem("token") ?? "";
 
       await axios.delete(
-        `http://localhost:8000/colecao/album/${album.colecao_id}`,
+        `${API_BASE}/colecao/album/${album.colecao_id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

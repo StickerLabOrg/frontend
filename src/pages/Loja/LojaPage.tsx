@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { AppLayout } from "../../layout/AppLayout";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
 
 import {
   Package,
@@ -204,7 +205,7 @@ export function LojaPage() {
       setLoadingPerfil(true);
       const token = localStorage.getItem("token") ?? "";
       const resp = await axios.get<UsuarioPerfil>(
-        "http://localhost:8000/usuarios/me",
+        `${API_BASE}/usuarios/me`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setUsuario(resp.data);
@@ -250,7 +251,7 @@ export function LojaPage() {
       const token = localStorage.getItem("token") ?? "";
 
       const resp = await axios.post<AbrirPacoteResponse>(
-        `http://localhost:8000/colecao/comprar/${pacoteSelecionado.id}`,
+        `${API_BASE}/colecao/comprar/${pacoteSelecionado.id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -289,7 +290,7 @@ export function LojaPage() {
       const token = localStorage.getItem("token") ?? "";
 
       const resp = await axios.post<AlbumResponse>(
-        "http://localhost:8000/colecao/pacote/confirmar",
+        `${API_BASE}/colecao/pacote/confirmar`,
         null,
         {
           params: { pacote_temp_id: abrirDados.pacote_id_temporario },
