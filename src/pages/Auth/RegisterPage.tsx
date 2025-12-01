@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/ca
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export function RegisterPage() {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:8000/usuarios/", {
+      await axios.post(`${API_BASE}/usuarios/`, {
         nome,
         email,
         password: senha,

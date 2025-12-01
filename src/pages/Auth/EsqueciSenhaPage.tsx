@@ -12,6 +12,7 @@ import {
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
+import { API_BASE } from "../../config/api";
 
 export function EsqueciSenhaPage() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export function EsqueciSenhaPage() {
     setErro(null);
 
     try {
-      await axios.post("http://localhost:8000/usuarios/esqueci-senha", {
+      await axios.post(`${API_BASE}/usuarios/esqueci-senha`, {
         email,
         nova_senha: novaSenha,
       });
@@ -57,7 +58,7 @@ export function EsqueciSenhaPage() {
 
         <CardContent>
           <form onSubmit={handleReset} className="space-y-5">
-            {/* Mensagens */}
+            
             {msg && (
               <p className="text-emerald-400 text-center font-medium">
                 {msg}
@@ -100,7 +101,6 @@ export function EsqueciSenhaPage() {
                 {loading ? "Enviando..." : "Redefinir Senha"}
               </Button>
 
-              {/* BTN Voltar */}
               <Button
                 type="button"
                 variant="outline"

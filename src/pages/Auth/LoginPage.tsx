@@ -8,9 +8,8 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import { useAuth } from "../../context/AuthContext";
-
-// Import CORRETO da sua logo
 import LogoHT from "../../assets/LOGO_HT.png";
+import { API_BASE } from "../../config/api";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
@@ -27,7 +26,7 @@ export function LoginPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/usuarios/login",
+        `${API_BASE}/usuarios/login`,
         new URLSearchParams({
           username: email,
           password: senha,
@@ -55,8 +54,6 @@ export function LoginPage() {
       <Card className="w-full max-w-[380px] bg-white/5 border-white/10 shadow-xl shadow-black/40 backdrop-blur-md animate-fade-slide-up">
 
         <CardHeader className="flex flex-col items-center gap-4">
-
-          {/* LOGO COM EFEITO NEON NO HOVER */}
           <img
             src={LogoHT}
             alt="Logo Hub do Torcedor"
