@@ -123,80 +123,45 @@ export function PartidaPage() {
   const [abaAtiva, setAbaAtiva] = useState<Aba>("resumo");
 
   async function fetchPartidaDetalhes(id: string) {
-    try {
-      setLoading(true);
-      setErro(null);
+  try {
+    setLoading(true);
+    setErro(null);
 
-      const resp = await axios.get(
-        `${API_BASE}/colecao/partidas/resultado/${id}`
-      );
+    // ROTA CORRETA DO BACKEND
+    const resp = await axios.get(`${API_BASE}/partidas/resultado/${id}`);
+    const data: any = resp.data || {};
 
-      let raw: any = resp.data;
+    const detalhe: PartidaDetalhe = {
+      id_partida: String(data.id_partida ?? id),
+      time_casa: {
+        nome: data.time_casa?.nome ?? "Time da Casa",
+        escudo: data.time_casa?.escudo ?? null,
+        id: data.time_casa?.id,
+      },
+      time_fora: {
+        nome: data.time_fora?.nome ?? "Time Visitante",
+        escudo: data.time_fora?.escudo ?? null,
+        id: data.time_fora?.id,
+      },
+      data: data.data ?? "",
+      horario: data.horario ?? "",
+      status: data.status ?? null,
+      placar_casa: data.placar_casa ?? null,
+      placar_fora: data.placar_fora ?? null,
+      estadio: data.estadio ?? null,
+      cidade: data.cidade ?? null,
+      publico: data.publico ?? null,
+    };
 
-      if (raw && Array.isArray(raw.events)) {
-        raw = raw.events[0];
-      } else if (raw && raw.event && !Array.isArray(raw.event)) {
-        raw = raw.event;
-      } else if (Array.isArray(raw)) {
-        raw = raw[0];
-      }
+    setPartida(detalhe);
 
-      const data = raw || {};
-
-      const detalhe: PartidaDetalhe = {
-        id_partida: String(data.idEvent ?? id),
-        time_casa: {
-          nome:
-            data.time_casa?.nome ??
-            data.time_casa_nome ??
-            data.strHomeTeam ??
-            "Time da Casa",
-          escudo:
-            data.time_casa?.escudo ??
-            data.time_casa_escudo ??
-            data.strHomeBadge ??
-            null,
-          id: data.time_casa?.id ?? data.idHomeTeam,
-        },
-        time_fora: {
-          nome:
-            data.time_fora?.nome ??
-            data.time_fora_nome ??
-            data.strAwayTeam ??
-            "Time Visitante",
-          escudo:
-            data.time_fora?.escudo ??
-            data.time_fora_escudo ??
-            data.strAwayBadge ??
-            null,
-          id: data.time_fora?.id ?? data.idAwayTeam,
-        },
-        data: data.data ?? data.dateEvent ?? "",
-        horario: data.horario ?? data.strTime ?? "",
-        status: data.status ?? data.strStatus ?? null,
-        placar_casa:
-          data.placar_casa ??
-          data.gols_casa ??
-          (data.intHomeScore != null ? Number(data.intHomeScore) : null),
-        placar_fora:
-          data.placar_fora ??
-          data.gols_fora ??
-          (data.intAwayScore != null ? Number(data.intAwayScore) : null),
-        estadio: data.estadio ?? data.strVenue ?? null,
-        cidade: data.cidade ?? data.strCity ?? null,
-        publico:
-          data.publico ??
-          (data.intAttendance != null ? Number(data.intAttendance) : null),
-      };
-
-      setPartida(detalhe);
-    } catch (e) {
-      console.error("Erro ao buscar detalhes da partida:", e);
-      setErro("Não foi possível carregar os detalhes da partida.");
-    } finally {
-      setLoading(false);
-    }
+  } catch (e) {
+    console.error("Erro ao buscar detalhes da partida:", e);
+    setErro("Não foi possível carregar os detalhes da partida.");
+  } finally {
+    setLoading(false);
   }
+}
 
   // CORRIGIDO AQUI
   useEffect(() => {
