@@ -90,7 +90,7 @@ export function MeusPalpitesPage() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const API_BASE = "http://localhost:8000";
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   async function processarPalpitesAutomatico() {
     const token = localStorage.getItem("token");
